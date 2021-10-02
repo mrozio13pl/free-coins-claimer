@@ -3,7 +3,7 @@
 
 ## REQUIREMENTS
 
-[![NodeJS](https://i.imgur.com/eXGeNgq.png)](https://nodejs/org)
+[![NodeJS](https://i.imgur.com/eXGeNgq.png)](https://nodejs.org)
 
 ## INSTALL AND RUN 
 Remember to install [NodeJS](https://nodejs.org)!
