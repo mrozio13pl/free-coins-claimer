@@ -1,23 +1,47 @@
 {
-  "name": "hello-node",
-  "version": "0.0.1",
-  "description": "A simple Node app built on fastify, instantly up and running.",
+  "name": "free-coins-claimer",
+  "version": "2.0.0",
+  "description": "Tricksplit.io Coins Claimer that claims 20 coins every 2 hours (can be used on multiple accounts)",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
-    "start": "nodemon"
+    "start": "cd src && node index.js"
   },
   "dependencies": {
     "chalk": "^4.1.1",
     "console-clear": "^1.1.1",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "express-favicon": "^2.0.1",
+    "express-status-monitor": "^1.3.3",
     "figlet": "^1.5.0",
-    "node-fetch": "^2.6.1",
-    "nodemon": "^2.0.12",
-    "path": "^0.12.7"
+    "got": "^11.8.2",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
+    "readline": "^1.3.0"
   },
   "engines": {
-    "node": "12.x"
+    "node": "14.15.3"
   },
-  "devDependencies": {}
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrozio13pl/free-coins-claimer.git"
+  },
+  "keywords": [
+    "tricksplit",
+    "cellz",
+    "coin",
+    "coins",
+    "io",
+    "bots",
+    "agario",
+    "mrozio13pl",
+    "hack"
+  ],
+  "author": "mrozio13pl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrozio13pl/free-coins-claimer/issues"
+  },
+  "homepage": "https://github.com/mrozio13pl/free-coins-claimer#readme"
 }

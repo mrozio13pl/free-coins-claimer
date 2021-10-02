@@ -1,3 +1,3 @@
 @echo off
-nodemon
+cd src && node index
 PAUSE

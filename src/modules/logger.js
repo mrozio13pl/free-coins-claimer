@@ -1,47 +1,26 @@
 'use strict';
+
 /*
  * Simple logger.
  *
  * Copyright (c) 2016 Barbosik https://github.com/Barbosik
  * License: Apache License, Version 2.0
  *
+ * EDITED
  */
 
-var fs = require("fs");
-var util = require('util');
-var EOL = require('os').EOL;
-var LogLevelEnum = require('../modules/LogLevelEnum.js');
 
-
-module.exports.print = print;
-module.exports.write = write;
-module.exports.start = start;
-module.exports.shutdown = shutdown;
-module.exports.setVerbosity = function (level) {
-    logVerbosity = level;
-};
-module.exports.setFileVerbosity = function (level) {
-    logFileVerbosity = level;
-};
-module.exports.getVerbosity = function () {
-    return logVerbosity;
-};
-module.exports.getFileVerbosity = function () {
-    return logFileVerbosity;
-};
-
-
-var logVerbosity = LogLevelEnum.DEBUG;
-var logFileVerbosity = LogLevelEnum.DEBUG;
+var logVerbosity = "";
+var logFileVerbosity = "";
 
 function print(message) {
-    writeCon(colorWhite, LogLevelEnum.NONE, message);
-    writeLog(LogLevelEnum.NONE, message);
-};
+    writeCon(colorWhite, message);
+    writeLog(message);
+}
 
 function write(message) {
-    writeLog(LogLevelEnum.NONE, message);
-};
+    writeLog(message);
+}
 
 
 // --- utils ---
@@ -63,7 +42,7 @@ function getDateTimeString() {
     ts = ("00" + ts).slice(-2);
     tz = ("000" + tz).slice(-3);
     return dy + "-" + dm + "-" + dd + "T" + th + "-" + tm + "-" + ts + "-" + tz;
-};
+}
 
 function getTimeString() {
     var date = new Date();
@@ -74,45 +53,22 @@ function getTimeString() {
     tm = ("00" + tm).slice(-2);
     ts = ("00" + ts).slice(-2);
     return th + ":" + tm + ":" + ts;
-};
+}
 
 function writeCon(color, level, message) {
     if (level > logVerbosity) return;
     message = util.format(message);
     var prefix = "";
-    if (level == LogLevelEnum.DEBUG)
-        prefix = "[DEBUG] ";
-    else if (level == LogLevelEnum.INFO)
-        prefix = "[INFO ] ";
-    else if (level == LogLevelEnum.WARN)
-        prefix = "[WARN ] ";
-    else if (level == LogLevelEnum.ERROR)
-        prefix = "[ERROR] ";
-    else if (level == LogLevelEnum.FATAL)
-        prefix = "[FATAL] ";
     process.stdout.write(color + prefix + message + "\u001B[0m" + EOL);
-};
+}
 
 function writeLog(level, message) {
-    if (level > logFileVerbosity || writeError)
-        return;
     message = util.format(message);
     var prefix = "";
-    if (level == LogLevelEnum.DEBUG)
-        prefix = "[DEBUG]";
-    else if (level == LogLevelEnum.INFO)
-        prefix = "[INFO ]";
-    else if (level == LogLevelEnum.WARN)
-        prefix = "[WARN ]";
-    else if (level == LogLevelEnum.ERROR)
-        prefix = "[ERROR]";
-    else if (level == LogLevelEnum.FATAL)
-        prefix = "[FATAL]";
-    else if (level == LogLevelEnum.NONE)
         prefix = "";
     prefix += "[" + getTimeString() + "] ";
     
-    writeQueue.push(prefix + message + EOL);
+    writeQueue.push(prefix + EOL);
     if (writeShutdown) {
         flushSync();
     } else {
@@ -120,7 +76,7 @@ function writeLog(level, message) {
             flushAsync();
         }
     }
-};
+}
 
 var writeError = false;
 var writeCounter = 0;
@@ -133,7 +89,7 @@ function flushAsync() {
         return;
     writeCounter++;
     consoleLog.write(writeQueue.shift(), function () { writeCounter--; flushAsync(); });
-};
+}
 
 function flushSync() {
     try {
@@ -145,17 +101,17 @@ function flushSync() {
         fs.appendFileSync(fileName, tail);
     } catch (err) {
         writeError = true;
-        writeCon(colorRed + colorBright, LogLevelEnum.ERROR, err.message);
-        writeCon(colorRed + colorBright, LogLevelEnum.ERROR, "Failed to append log file!");
+        writeCon(colorRed + colorBright, err.message);
+        writeCon(colorRed + colorBright, "Failed to append log file!");
     }
-};
+}
 
 function start() {
     if (writeStarted)
         return;
     writeStarted = true;
     try {
-        console.log = function (message) { print(message); };
+        setTimeout(function(message) { print(console.log); }, 1)
         
         var timeString = getDateTimeString();
         var fileName = logFolder + "/" + logFileName + ".html";
@@ -172,8 +128,7 @@ function start() {
             // Backup previous log
             fs.renameSync(fileName, fileName2);
         }
-        
-        fs.writeFileSync(fileName, "<title>LOGS</title><p style='font-family: Arial; font-size: 40px'>Start: " + timeString + EOL+'</p>');
+        fs.writeFileSync(fileName, "<style>@import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@200&display=swap');body{font-size:23px;font-family:'Gemunu Libre',sans-serif;};</style><link rel='icon' href='./favicon.png'><title>LOGS</title><h1 style='font-family: Arial; font-size: 40px'>Start: " + timeString + EOL+`</h1><p style='font-family: Arial; font-size: 20px'>Stats: <a href="./stats">.../stats</a></p><p style='font-family: Arial; font-size: 20px'>Accounts: <a href="./accounts">.../accounts</a></p><p style='font-family: Arial; font-size: 20px'>Settings: <a href="./settings">.../settings</a></p><p style='font-family: Arial; font-size: 20px'>Specific account: <a href="./acc/name">.../acc/(name)</a> (type acc_list in the console to see accounts)</p>`);
         var file = fs.createWriteStream(fileName, { flags: 'a' });
         file.on('open', function () {
             if (writeShutdown) {
@@ -186,12 +141,12 @@ function start() {
         file.on('error', function (err) {
             writeError = true;
             consoleLog = null;
-            writeCon(colorRed + colorBright, LogLevelEnum.ERROR, err.message);
+            writeCon(err.message);
         });
     } catch (err) {
         writeError = true;
         consoleLog = null;
-        writeCon(colorRed + colorBright, LogLevelEnum.ERROR, err.message);
+        writeCon(err.message);
     }
 }
 
@@ -206,20 +161,39 @@ function shutdown() {
     }
     writeQueue.push("=== Shutdown " + getDateTimeString() + " ===" + EOL);
     flushSync();
-};
+}
 
 
-var logFolder = "./src/views";
+var logFolder = "../src/views";
 var logBackupFolder = "./logs";
 var logFileName = "log";
 
 var consoleLog = null;
-var colorBlack = "\u001B[30m";
 var colorRed = "\u001B[31m";
-var colorGreen = "\u001B[32m";
-var colorYellow = "\u001B[33m";
-var colorBlue = "\u001B[34m";
-var colorMagenta = "\u001B[35m";
-var colorCyan = "\u001B[36m";
 var colorWhite = "\u001B[37m";
 var colorBright = "\u001B[1m";
+
+
+import fs from 'fs';
+
+import util from 'util';
+import { EOL } from 'os';
+
+
+export default { print, write, start, shutdown };
+
+export const setVerbosity = function (level) {
+    logVerbosity = level;
+};
+
+export const setFileVerbosity = function (level) {
+    logFileVerbosity = level;
+};
+
+export const getVerbosity = function () {
+    return logVerbosity;
+};
+
+export const getFileVerbosity = function () {
+    return logFileVerbosity;
+};
