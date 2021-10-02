@@ -69,6 +69,6 @@ Remember to install [NodeJS](https://nodejs.org)!
 [1.1]: https://i.imgur.com/YbZJvEw.png
 [1.2]: https://i.imgur.com/SKWM9JD.png
 [1.3]: https://i.imgur.com/eZzLrxC.png
-[1]: https://github/mrozio13pl
-[2]: https://www.youtube.com/Mrozio
+[1]: https://github.com/mrozio13pl
+[2]: https://youtube.com/Mrozio
 [3]: https://discord.gg/Ndf6uukEbC
