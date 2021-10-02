@@ -43,7 +43,7 @@ Remember to install [NodeJS](https://nodejs.org)!
 #### 
 ##### It should look like __[this](https://api.tricksplit.io/freeCoins/?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJpZnlOYW1lIjpudWxsLCJpc1ZlcmlmaWVkIjowLCJpc0FkbWluIjowLCJpc01vZCI6MCwiY2hhbmdlZE5hbWUiOjAsImlkIjoiMTAyMjA1MzgwNjA4MjE5MjM1NTA2IiwiZGlzY29yZElEIjpudWxsLCJuYW1lIjoiYWJjIEVmZyIsIm9sZE5hbWUiOm51bGwsImNvaW5zIjowLCJ4cCI6MCwic2Vhc29uWFAiOjAsInN1YiI6MTY4ODcyODEsInBsYXRmb3JtIjoiZ29vZ2xlIiwicmVmZmVyZXIiOiJ1bmRlZmluZWQiLCJsYXN0Q29pbkNsYWltIjowLCJsYXN0Tml0cm9DbGFpbSI6MCwiY2xhaW1lZDIwIjowLCJjbGFpbWVkNTAiOjAsImRldGFpbHMiOnsiaWQiOiIxMDIyMDUzODA2MDgyMTkyMzU1MDYiLCJsYXN0SXAiOiIxODguMTQ3LjM2LjE0MSIsImxhc3RMb2dpbiI6MTYyNjU0NDMwOTc1NCwiZW1haWwiOiJhYmNmZWdnZ0BnbWFpbC5jb20iLCJvcmlnaW4iOiJodHRwczovL3RyaWNrc3BsaXQuaW8ifSwiaXRlbXMiOltdLCJpYXQiOjE2MjY1NDQzMDl9.tYWWt7HykQTaW7x2a4xuP3ySkul2gldfLxHcSptiYa0)__
 ####
-![Loading GIF](https://i.imgur.com/XdBqJRg.gif)
+![Loading GIF](https://i.imgur.com/XdBqJRg.mp4)
 ## SETTINGS
 ####
 ##### Default Port: **[5100](http://localhost:5100)**
