@@ -1,3 +1,3 @@
 @echo off
 echo Installing...
-npm i -g --save
+npm i
